@@ -2,15 +2,24 @@
 
 namespace Controllers\Tracking;
 
-use Controllers\PublicController;
+use Controllers\PrivateController;
 use Dao\Tracking\Pedidos as PedidosDAO;
 use Dao\Tracking\Platos as PlatosDAO;
+use Utilities\Security;
 use Utilities\Site;
 
-class CancelarPedido extends PublicController
+class CancelarPedido extends PrivateController
 {
     public function run(): void
     {
+        if (Security::getUserRole() !== 'cliente') {
+            Site::redirectTo(
+                "index.php?page=Tracking_MisPedidos",
+                "Solo los clientes pueden cancelar sus pedidos."
+            );
+            return;
+        }
+
         if (!$this->isPostBack()) {
             Site::redirectTo("index.php?page=Tracking_MisPedidos");
             return;
@@ -18,7 +27,8 @@ class CancelarPedido extends PublicController
 
         $pedidoId = intval($_POST["pedidoId"] ?? 0);
 
-        $pedido = PedidosDAO::getPedidoById($pedidoId);
+        $usuarioId = Security::getUserId();
+        $pedido = PedidosDAO::getPedidoById($pedidoId, $usuarioId);
 
         if (!$pedido || $pedido["estado"] !== "pendiente") {
             Site::redirectTo(
@@ -28,7 +38,7 @@ class CancelarPedido extends PublicController
             return;
         }
 
-        PedidosDAO::cancelarPedido($pedidoId);
+        PedidosDAO::cancelarPedido($pedidoId, $usuarioId);
 
         PlatosDAO::aumentarStock(
             $pedido["plato_id"],

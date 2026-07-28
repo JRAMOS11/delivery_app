@@ -9,16 +9,13 @@ class Login extends \Controllers\PublicController
 
     public function run(): void
     {
-   
-    if ($this->isPostBack()) {
+        if ($this->isPostBack()) {
 
-            $this->email = trim(
-                $_POST["email"] ?? ""
-            );
+            $this->email =
+                trim($_POST["email"] ?? "");
 
-            $passwd = trim(
-                $_POST["passwd"] ?? ""
-            );
+            $passwd =
+                trim($_POST["passwd"] ?? "");
 
             if (
                 empty($this->email) ||
@@ -27,6 +24,16 @@ class Login extends \Controllers\PublicController
 
                 $this->error =
                     "Debe ingresar correo y contraseña.";
+
+            } elseif (
+                !filter_var(
+                    $this->email,
+                    FILTER_VALIDATE_EMAIL
+                )
+            ) {
+
+                $this->error =
+                    "Ingrese un correo electrónico válido.";
 
             } else {
 
@@ -43,23 +50,20 @@ class Login extends \Controllers\PublicController
                     )
                 ) {
 
+                    session_regenerate_id(true);
+
                     \Utilities\Security::login(
-                        $usuario["id"],
+                        (int) $usuario["id"],
                         $usuario["nombre"],
                         $usuario["email"],
                         $usuario["rol"]
                     );
 
-                    $redirTo =
-                        urldecode(
-                            \Utilities\Context::getContextByKey(
-                                "redirto"
-                            ) ?: "index.php"
-                        );
-
                     \Utilities\Site::redirectTo(
-                        $redirTo
+                        "index.php"
                     );
+
+                    return;
 
                 } else {
 
@@ -70,12 +74,8 @@ class Login extends \Controllers\PublicController
         }
 
         \Utilities\Site::addLink(
-            "public/css/auth.css"
+            "public/css/global.css"
         );
-
-        \Utilities\Site::addLink(
-    "public/css/auth.css"
-);
 
         \Views\Renderer::render(
             "security/login",

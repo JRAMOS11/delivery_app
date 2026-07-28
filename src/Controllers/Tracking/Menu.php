@@ -19,10 +19,20 @@ class Menu extends PrivateController
         foreach ($this->platos as &$plato) {
             $plato["platoDisponible"] = ($plato["stock"] > 0);
         }
+        unset($plato);
+
+        $carrito = $_SESSION['carrito'] ?? [];
+        $cartCount = array_sum(array_map('intval', $carrito));
  
         Renderer::render(
             "tracking/menu",
-            ["platos" => $this->platos]
+            [
+                "platos" => $this->platos,
+                "totalPlatos" => count($this->platos),
+                "platosDisponibles" => count(array_filter($this->platos, static fn(array $plato): bool => $plato["stock"] > 0)),
+                "cartCount" => $cartCount,
+                "hasCart" => $cartCount > 0,
+            ]
         );
     }
 }

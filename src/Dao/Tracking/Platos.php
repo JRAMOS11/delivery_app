@@ -21,7 +21,12 @@ class Platos extends Table
             ORDER BY nombre;
         ";
 
-        return self::obtenerRegistros($sqlstr, []);
+        return self::agregarImagenes(
+            self::obtenerRegistros(
+            $sqlstr,
+            []
+            )
+        );
     }
 
     public static function getById(int $id)
@@ -38,10 +43,53 @@ class Platos extends Table
             WHERE id = :id;
         ";
 
-        return self::obtenerUnRegistro(
+        $plato = self::obtenerUnRegistro(
             $sqlstr,
-            ['id' => $id]
+            [
+                'id' => $id
+            ]
         );
+
+        if (is_array($plato)) {
+            $plato['imagen'] = self::obtenerImagen($plato['nombre']);
+        }
+
+        return $plato;
+    }
+
+    private static function agregarImagenes(array $platos): array
+    {
+        foreach ($platos as &$plato) {
+            $plato['imagen'] = self::obtenerImagen($plato['nombre']);
+        }
+        unset($plato);
+
+        return $platos;
+    }
+
+    private static function obtenerImagen(string $nombre): string
+    {
+        $nombreNormalizado = strtolower($nombre);
+        $imagenes = [
+            'pizza' => 'platos/pizza.jpg',
+            'hamburguesa' => 'platos/hamburguesa.jpg',
+            'ensalada' => 'platos/ensalada.jpg',
+            'limonada' => 'platos/limonada.jpg',
+            'baleada' => 'platos/baleada.jpg',
+            'alita' => 'platos/alitas.jpg',
+            'pastel' => 'platos/pastel.jpg',
+            'refresco' => 'platos/refresco.jpg',
+            'taco' => 'platos/tacos.jpg',
+            'pollo' => 'platos/pollo.jpg',
+        ];
+
+        foreach ($imagenes as $palabra => $ruta) {
+            if (str_contains($nombreNormalizado, $palabra)) {
+                return $ruta;
+            }
+        }
+
+        return 'platos/pizza.jpg';
     }
 
     public static function reducirStock(
@@ -49,15 +97,32 @@ class Platos extends Table
         int $cantidad
     ) {
         $conn = self::getConn();
+
         $stmt = $conn->prepare("
             UPDATE platos
             SET stock = stock - :cantidad
             WHERE id = :id
-            AND stock >= :cantidad2
+            AND stock >= :cantidad2;
         ");
-        $stmt->bindParam(':id',        $id,      \PDO::PARAM_INT);
-        $stmt->bindParam(':cantidad',  $cantidad, \PDO::PARAM_INT);
-        $stmt->bindParam(':cantidad2', $cantidad, \PDO::PARAM_INT);
+
+        $stmt->bindParam(
+            ':id',
+            $id,
+            \PDO::PARAM_INT
+        );
+
+        $stmt->bindParam(
+            ':cantidad',
+            $cantidad,
+            \PDO::PARAM_INT
+        );
+
+        $stmt->bindParam(
+            ':cantidad2',
+            $cantidad,
+            \PDO::PARAM_INT
+        );
+
         return $stmt->execute();
     }
 
@@ -74,7 +139,7 @@ class Platos extends Table
         return self::executeNonQuery(
             $sqlstr,
             [
-                'id'       => $id,
+                'id' => $id,
                 'cantidad' => $cantidad
             ]
         );
