@@ -1,261 +1,245 @@
-/* ==========================
-   COCINA / HISTORIAL
-========================== */
-
-.cocina-page {
-    padding-top: 3.5rem;
+/* Kitchen workflow surfaces. */
+.cocina-page,
+.historial-page {
+  padding: 1rem 0;
 }
 
-.cocina-page h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: var(--text-main);
+.cocina-page h1,
+.historial-page h1 {
+  margin: 0 0 1.3rem;
+  color: var(--color-ink);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.9rem, 4vw, 2.65rem);
+  line-height: 1.1;
 }
 
 .cocina-back {
-    display: inline-block;
-    margin-bottom: 1rem;
-    font-size: .9rem;
-    color: var(--toasted);
-    text-decoration: none;
+  display: inline-flex;
+  margin-bottom: 1rem;
+  padding: .5rem .75rem;
+  color: var(--color-coral-dark);
+  font-size: .88rem;
+  font-weight: 800;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
 }
 
 .cocina-back:hover {
-    color: #f9be5a;
+  color: var(--color-ink);
+  background: var(--color-gold-soft);
 }
 
-.cocina-table-wrap {
-    overflow-x: auto;
+.admin-alert {
+  margin-bottom: 1.15rem;
+  padding: .8rem 1rem;
+  color: var(--color-coral-dark);
+  font-size: .88rem;
+  background: var(--color-coral-soft);
+  border: 1px solid rgba(189, 67, 50, .25);
+  border-left: 4px solid var(--color-coral);
+  border-radius: var(--radius-sm);
 }
 
-.cocina-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--bg-surface);
-    border-radius: 8px;
-    overflow: hidden;
+.cocina-table-wrap,
+.cocina-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  -webkit-overflow-scrolling: touch;
 }
 
-.cocina-table thead tr {
-    border-bottom: 2px solid var(--tomato);
-}
-
-.cocina-table th {
-    padding: .75rem 1.25rem;
-    text-align: left;
-    color: var(--text-muted);
-    font-size: .78rem;
-    text-transform: uppercase;
-    letter-spacing: .04em;
-}
-
-.cocina-table td {
-    padding: .75rem 1.25rem;
-    color: var(--text-main);
-    border-bottom: 1px solid var(--border);
-}
-
-.cocina-table tbody tr:hover {
-    background: rgba(255,255,255,0.02);
-}
-
-.cocina-table .id-col {
-    color: var(--text-muted);
-}
-
-.cocina-table .fecha-col {
-    color: var(--text-muted);
-    font-size: .85rem;
-}
-
-.estado-badge {
-    background: var(--bg-dark);
-    border: 1px solid var(--border);
-    padding: .2rem .75rem;
-    border-radius: 2rem;
-    font-size: .82rem;
-    color: var(--text-main);
-}
-
-.cocina-table .btn-avanzar {
-    background: var(--tomato);
-    color: #fff;
-    border: none;
-    padding: .35rem 1rem;
-    border-radius: 2rem;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: .82rem;
-    margin: 0;
-}
-
-.cocina-table .btn-avanzar:hover {
-    opacity: .85;
-}
-
-.cocina-table .btn-rechazar {
-    background: transparent;
-    color: var(--tomato);
-    border: 2px solid var(--tomato);
-    padding: .35rem 1rem;
-    border-radius: 2rem;
-    font-weight: 700;
-    cursor: pointer;
-    font-size: .82rem;
-    margin: 0;
-}
-
-.cocina-table .btn-rechazar:hover {
-    background: var(--tomato);
-    color: #fff;
-}
-
-/* ==========================
-   CONFIRMACIÓN DE PEDIDO
-========================== */
-
-.confirmar-page {
-    position: relative;
-    width: 100vw;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-top: -2rem;
-}
-
-.confirmar-barra {
-    background: linear-gradient(90deg, var(--tomato), #d44e24);
-    color: white;
-    padding: 16px;
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: bold;
-    letter-spacing: .05em;
-}
-
-.confirmar-body {
-    width: 95%;
-    max-width: 1100px;
-    margin: 2rem auto;
-    background: var(--bg-surface);
-    padding: 2.5rem 2rem;
-    border-radius: 8px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.4);
-    text-align: center;
-    border: 1px solid var(--border);
-    box-sizing: border-box;
-}
-.confirmar-table td:last-child {
-    min-width: 220px;
-}
-.confirmar-icon {
-    background: var(--tomato);
-    color: white;
-    width: 64px;
-    height: 64px;
-    line-height: 64px;
-    border-radius: 50%;
-    margin: 0 auto 1rem;
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.confirmar-body h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: var(--text-main);
-    margin-bottom: .5rem;
-}
-
-.confirmar-linea {
-    width: 140px;
-    height: 4px;
-    background: var(--tomato);
-    margin: .75rem auto 1.5rem;
-    border-radius: 4px;
-}
-
-.confirmar-success {
-    color: var(--green);
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-}
-
+.cocina-table,
 .confirmar-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+  width: 100%;
+  min-width: 760px;
+  background: var(--color-paper);
+  border-collapse: collapse;
 }
 
+.cocina-table thead tr,
+.confirmar-table thead tr {
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.cocina-table th,
 .confirmar-table th {
-    background: var(--bg-dark);
-    color: var(--text-muted);
-    padding: 1rem 1.25rem;
-    font-size: .78rem;
-    text-transform: uppercase;
-    letter-spacing: .04em;
-    text-align: left;
-    border-bottom: 2px solid var(--tomato);
+  padding: .85rem 1rem;
+  color: var(--color-coral-dark);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--color-paper-warm);
 }
 
+.cocina-table td,
 .confirmar-table td {
-    padding: 1rem 1.25rem;
-    font-size: .95rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--text-main);
-    text-align: left;
+  padding: .85rem 1rem;
+  color: var(--color-ink);
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-border);
 }
 
+.cocina-table tbody tr:last-child td,
+.confirmar-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.cocina-table tbody tr:hover,
 .confirmar-table tbody tr:hover {
-    background: rgba(255,255,255,0.02);
+  background: #fffaf4;
 }
 
+.estado-badge,
 .estado-badge-pend {
-    background: rgba(241,196,15,0.15);
-    color: #f1c40f;
-    border: 1px solid rgba(241,196,15,0.3);
-    padding: .2rem .75rem;
-    border-radius: 2rem;
-    font-size: .82rem;
-    font-weight: 600;
+  display: inline-flex;
+  padding: .28rem .7rem;
+  color: var(--color-gold-dark);
+  font-size: .78rem;
+  font-weight: 800;
+  background: var(--color-gold-soft);
+  border: 1px solid rgba(230, 164, 59, .4);
+  border-radius: var(--radius-pill);
+}
+
+.cocina-table button,
+.btn-confirmar-p,
+.btn-rechazar-p {
+  min-height: 38px;
+  margin: 0;
+  padding: .45rem .8rem;
+  font-size: .8rem;
+  white-space: nowrap;
 }
 
 .btn-confirmar-p {
-    background: var(--green);
-    color: #fff;
-    border: none;
-    padding: .5rem 1.25rem;
-    border-radius: 2rem;
-    font-size: .85rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin: 0;
+  background: var(--color-green);
 }
 
-.btn-confirmar-p:hover { opacity: .85; }
+.btn-confirmar-p:hover {
+  background: #3c704e;
+}
 
 .btn-rechazar-p {
-    background: transparent;
-    color: var(--tomato);
-    border: 2px solid var(--tomato);
-    padding: .5rem 1.25rem;
-    border-radius: 2rem;
-    font-size: .85rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin: 0;
+  color: var(--color-coral-dark);
+  background: transparent;
+  border-color: var(--color-coral);
+  box-shadow: none;
 }
 
 .btn-rechazar-p:hover {
-    background: var(--tomato);
-    color: #fff;
+  color: var(--color-paper);
+  background: var(--color-coral);
 }
-#main-content:has(.confirmar-barra) {
-    padding: 0;
-    max-width: 100%;
+
+.confirmar-barra {
+  width: 100vw;
+  margin: -2.6rem calc(50% - 50vw) 1.5rem;
+  padding: .9rem 1rem;
+  color: var(--color-paper);
+  font-size: .95rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-align: center;
+  text-transform: uppercase;
+  background: var(--color-coral);
+}
+
+.confirmar-body {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  text-align: center;
+  background: var(--color-paper);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.confirmar-icon {
+  display: grid;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  color: var(--color-paper);
+  font-size: 1.8rem;
+  font-weight: 800;
+  place-items: center;
+  background: var(--color-green);
+  border-radius: 50%;
+}
+
+.confirmar-body h1 {
+  margin: 0 0 .45rem;
+  color: var(--color-ink);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.confirmar-linea {
+  width: 110px;
+  height: 4px;
+  margin: .75rem auto 1.4rem;
+  background: var(--color-gold);
+  border-radius: var(--radius-pill);
+}
+
+.confirmar-success {
+  margin-bottom: 1.3rem;
+  color: var(--color-green);
+  font-weight: 800;
+}
+
+.confirmar-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  -webkit-overflow-scrolling: touch;
+}
+
+.confirmar-table {
+  min-width: 820px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.confirmar-table td:last-child {
+  min-width: 220px;
+}
+
+.confirmar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.confirmar-actions form {
+  flex: 0 0 auto;
+}
+
+.confirmar-back {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+@media (max-width: 720px) {
+  .confirmar-barra {
+    margin-top: -1.5rem;
+  }
+
+  .confirmar-body {
+    text-align: left;
+  }
+
+  .confirmar-icon,
+  .confirmar-body h1,
+  .confirmar-linea,
+  .confirmar-success {
+    margin-left: 0;
+  }
 }

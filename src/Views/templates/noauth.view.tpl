@@ -1,5 +1,5 @@
 <section class="error-page">
-  <h1>403 – Forbidden</h1>
-  <p>You don't have permission to view this page.</p>
-  <a href="index.php">← Go home</a>
+  <h1>403 - Acceso denegado</h1>
+  <p>No tienes permisos para ver esta página.</p>
+  <a href="index.php">← Volver al inicio</a>
 </section>

@@ -1,7 +1,3 @@
-<style>
-main { padding: 0 !important; max-width: 100% !important; }
-</style>
-
 <div class="confirmar-barra">☑ CONFIRMACIÓN DE PEDIDO</div>
 
 <div class="confirmar-body">
@@ -15,11 +11,12 @@ main { padding: 0 !important; max-width: 100% !important; }
     {{endif flash_msg}}
 
     {{if error}}
-    <div style="background:rgba(235,94,48,.15); color:var(--tomato); border-left:3px solid var(--tomato); padding:.75rem 1.25rem; border-radius:6px; margin-bottom:1.5rem; font-weight:600; text-align:left;">
+    <div class="admin-alert">
       ⚠ Conflicto de concurrencia: este pedido fue modificado por otro operador. Los datos han sido actualizados.
     </div>
     {{endif error}}
 
+    <div class="confirmar-table-wrap">
     <table class="confirmar-table">
       <thead>
         <tr>
@@ -39,7 +36,7 @@ main { padding: 0 !important; max-width: 100% !important; }
           <td>{{platos_nombres}}</td>
           <td>{{total_items}}</td>
           <td><span class="estado-badge-pend">pendiente</span></td>
-          <td style="display:flex; gap:8px;">
+          <td class="confirmar-actions">
             <form method="POST" action="index.php?page=Cocina.ActualizarEstado">
               <input type="hidden" name="id" value="{{id}}">
               <input type="hidden" name="version" value="{{version}}">
@@ -59,8 +56,9 @@ main { padding: 0 !important; max-width: 100% !important; }
         {{endfor pedidos}}
       </tbody>
     </table>
+    </div>
 
-    <div style="margin-top:1.5rem; text-align:left;">
+    <div class="confirmar-back">
       <a href="index.php?page=Cocina.Cocina" class="cocina-back">← Ver pedidos en proceso</a>
     </div>
 

@@ -28,7 +28,7 @@
             <form method="POST" action="index.php?page=Admin.GestionUsuarios">
               <input type="hidden" name="accion" value="cambiar_rol">
               <input type="hidden" name="id" value="{{id}}">
-              <select name="rol">
+              <select name="rol" aria-label="Nuevo rol para {{nombre}}">
                 <option value="cliente">cliente</option>
                 <option value="cocina">cocina</option>
                 <option value="admin">admin</option>
@@ -40,7 +40,7 @@
             <form method="POST" action="index.php?page=Admin.GestionUsuarios">
               <input type="hidden" name="accion" value="eliminar">
               <input type="hidden" name="id" value="{{id}}">
-              <button type="submit" class="btn-sm">Eliminar</button>
+              <button type="submit" class="btn-sm" aria-label="Eliminar a {{nombre}}">Eliminar</button>
             </form>
           </td>
         </tr>

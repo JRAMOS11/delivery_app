@@ -2,6 +2,26 @@
 
     <h1>Mis Pedidos</h1>
 
+    <form class="pedido-filter" method="GET" action="index.php">
+        <input type="hidden" name="page" value="Tracking_MisPedidos" />
+        <label for="estado">Filtrar por estado</label>
+        <select id="estado" name="estado">
+            {{foreach estadoOptions}}
+            <option value="{{value}}" {{selected}}>{{label}}</option>
+            {{endfor estadoOptions}}
+        </select>
+        <button type="submit">Aplicar</button>
+    </form>
+
+    {{ifnot hasPedidos}}
+    <div class="empty-state">
+        <h2>No hay pedidos para mostrar</h2>
+        <p>No encontramos pedidos con el filtro "{{estadoFiltroDsc}}". Puedes volver al menu y realizar un pedido.</p>
+    </div>
+    {{endifnot hasPedidos}}
+
+    {{if hasPedidos}}
+    <div class="pedidos-table-wrap">
     <table class="caps-products-table">
 
         <thead>
@@ -12,8 +32,9 @@
                 <th>Precio</th>
                 <th>Total</th>
                 <th>Estado</th>
+                <th>Seguimiento</th>
                 <th>Fecha</th>
-                <th>Acción</th>
+                <th>Accion</th>
             </tr>
         </thead>
 
@@ -30,11 +51,21 @@
                 <td>{{cantidad}}</td>
 
                 <td>L. {{precio}}</td>
-                
+
                 <td>L. {{total}}</td>
 
                 <td class="{{estadoClass}}">
                     {{estadoDsc}}
+                </td>
+
+                <td>
+                    <!-- Seguimiento visual del avance del pedido para el cliente. -->
+                    <div class="tracking-line">
+                        <span class="{{pasoPendiente}}">Pendiente</span>
+                        <span class="{{pasoProceso}}">En proceso</span>
+                        <span class="{{pasoListo}}">Listo</span>
+                        <span class="{{pasoEntregado}}">Entregado</span>
+                    </div>
                 </td>
 
                 <td>{{creado_en}}</td>
@@ -61,10 +92,12 @@
         </tbody>
 
     </table>
+    </div>
+    {{endif hasPedidos}}
 
     <div class="row my-4 flex-end">
 
-        <button type="button" id="btnRegresar" class="caps-secondary-btn">Volver al Menú </button>
+        <button type="button" id="btnRegresar" class="caps-secondary-btn">Volver al Menu</button>
 
     </div>
 

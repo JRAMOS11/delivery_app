@@ -1,146 +1,158 @@
-<section>
+<section class="menu-cliente">
 
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+    <div class="menu-encabezado">
 
-        <h1 style="font-family:'Playfair Display',serif; font-size:2rem;">
-            Menú del Restaurante
-        </h1>
+        <div class="menu-titulo">
 
-        <a href="index.php?page=Tracking_MisPedidos"
-            style="
-                background:var(--green);
-                color:white;
-                text-decoration:none;
-                padding:.7rem 1.25rem;
-                border-radius:2rem;
-                font-weight:700;
-            ">
-            Mis Pedidos
-        </a>
+            <h1>Menú del Restaurante</h1>
+
+            <p>
+                Selecciona tus comidas favoritas y agrégalas al carrito.
+            </p>
+
+        </div>
+
+        <div class="menu-opciones">
+
+            <a
+                href="index.php?page=Tracking_MisPedidos"
+                class="menu-enlace enlace-pedidos"
+            >
+                Mis pedidos
+            </a>
+
+            <a
+                href="index.php?page=Tracking_Carrito"
+                class="menu-enlace enlace-carrito"
+            >
+                Carrito ({{cartCount}})
+            </a>
+
+        </div>
 
     </div>
 
-    <div style="overflow-x:auto;">
+    <div class="menu-datos-generales" aria-label="Datos generales del menu">
+        <div class="dato-general">
+            <strong>{{totalPlatos}}</strong>
+            <span>opciones en el menu</span>
+        </div>
+        <div class="dato-general">
+            <strong>{{platosDisponibles}}</strong>
+            <span>con stock disponible</span>
+        </div>
+        <div class="dato-general">
+            <strong>{{cartCount}}</strong>
+            <span>articulos en tu carrito</span>
+        </div>
+    </div>
 
-        <table style="
-            width:100%;
-            border-collapse:collapse;
-            background:var(--bg-surface);
-            border-radius:8px;
-            overflow:hidden;
-        ">
+    <div class="productos-grid">
 
-            <thead>
-                <tr style="border-bottom:2px solid var(--tomato);">
+        {{foreach platos}}
 
-                    <th style="padding:.75rem 1rem; text-align:left;">
-                        Plato
-                    </th>
+        <article class="producto-card">
 
-                    <th style="padding:.75rem 1rem; text-align:left;">
-                        Descripción
-                    </th>
+            <div class="producto-imagen-contenedor">
 
-                    <th style="padding:.75rem 1rem; text-align:left;">
-                        Precio
-                    </th>
+                <img
+                    src="{{~BASE_DIR}}public/img/{{imagen}}"
+                    alt="{{nombre}}"
+                    class="producto-imagen"
+                >
 
-                    <th style="padding:.75rem 1rem; text-align:left;">
-                        Stock
-                    </th>
+            </div>
 
-                    <th style="padding:.75rem 1rem; text-align:left;">
-                        Pedido
-                    </th>
+            <div class="producto-contenido">
 
-                </tr>
-            </thead>
+                <div class="producto-estado">
+                    {{if platoDisponible}}
+                    <span class="producto-stock stock-disponible">{{stock}} disponibles</span>
+                    {{endif platoDisponible}}
+                    {{ifnot platoDisponible}}
+                    <span class="producto-stock stock-agotado">Agotado</span>
+                    {{endifnot platoDisponible}}
+                </div>
 
-            <tbody>
+                <h2 class="producto-nombre">
+                    {{nombre}}
+                </h2>
 
-                {{foreach platos}}
+                <p class="producto-descripcion">
+                    {{descripcion}}
+                </p>
 
-                <tr style="border-bottom:1px solid var(--border);">
+                <div class="producto-precio">
+                    L. {{precio}}
+                </div>
 
-                    <td style="padding:.75rem 1rem; font-weight:600;">
-                        {{nombre}}
-                    </td>
+                {{if platoDisponible}}
 
-                    <td style="padding:.75rem 1rem; color:var(--text-muted);">
-                        {{descripcion}}
-                    </td>
+                <form
+                    action="index.php?page=Tracking_Carrito"
+                    method="POST"
+                    class="producto-form"
+                >
 
-                    <td style="padding:.75rem 1rem;">
-                        L. {{precio}}
-                    </td>
+                    <input
+                        type="hidden"
+                        name="accion"
+                        value="agregar"
+                    >
 
-                    <td style="padding:.75rem 1rem;">
+                    <input
+                        type="hidden"
+                        name="platoId"
+                        value="{{id}}"
+                    >
 
-                        {{if platoDisponible}}
+                    <div class="cantidad-grupo">
 
-                        <span style="
-                            background:rgba(92,143,34,.15);
-                            color:var(--green);
-                            padding:.25rem .75rem;
-                            border-radius:999px;
-                            font-size:.85rem;
-                            font-weight:600;
-                        ">
-                            {{stock}} disponibles
-                        </span>
+                        <label for="cantidad-{{id}}">
+                            Cantidad:
+                        </label>
 
-                        {{endif platoDisponible}}
+                        <input
+                            id="cantidad-{{id}}"
+                            class="cantidad-input"
+                            type="number"
+                            name="cantidad"
+                            min="1"
+                            max="{{stock}}"
+                            value="1"
+                            required
+                        >
 
-                        {{ifnot platoDisponible}}
+                    </div>
 
-                        <span style="
-                            background:rgba(235,94,48,.15);
-                            color:var(--tomato);
-                            padding:.25rem .75rem;
-                            border-radius:999px;
-                            font-size:.85rem;
-                            font-weight:600;
-                        ">
-                            Agotado
-                        </span>
+                    <button
+                        type="submit"
+                        class="btn-agregar"
+                    >
+                        Agregar al carrito
+                    </button>
 
-                        {{endifnot platoDisponible}}
+                </form>
 
-                    </td>
+                {{endif platoDisponible}}
 
-                    <td style="padding:.75rem 1rem;">
+                {{ifnot platoDisponible}}
 
-                        {{if platoDisponible}}
+                <button
+                    type="button"
+                    class="btn-agotado"
+                    disabled
+                >
+                    Producto agotado
+                </button>
 
-                        <form action="index.php?page=Tracking_Pedido"
-                            method="POST"
-                            style="
-                                display:flex;
-                                align-items:center;
-                                gap:.5rem;
-                            ">
+                {{endifnot platoDisponible}}
 
-                            <input type="hidden" name="platoId" value="{{id}}" />
+            </div>
 
-                            <input type="number"  name="cantidad" min="1" max="{{stock}}"value="1" style="
-                            width:75px; margin:0; background:#2a2a2a; color:#f5f0e8; border:1px solid #444; border-radius:6px; padding:.35rem .5rem; text-align:center;"
-                            />
+        </article>
 
-                            <button type="submit" style="margin:0;" >Realizar Pedido</button>
-
-                        </form>
-
-                        {{endif platoDisponible}}
-
-                    </td>
-
-                </tr>
-
-                {{endfor platos}}
-
-            </tbody>
-
-        </table>
+        {{endfor platos}}
 
     </div>
 
