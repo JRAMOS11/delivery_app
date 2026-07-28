@@ -66,4 +66,52 @@ class AdminDao extends Dao
         $stmt->execute(['s' => max(0, $stock), 'id' => $id]);
         return $stmt->rowCount() > 0;
     }
+
+    public static function crearPlato(
+        string $nombre,
+        string $descripcion,
+        float $precio,
+        int $stock,
+        int $disponible
+    ): bool {
+        $stmt = self::getConn()->prepare('
+            INSERT INTO platos (nombre, descripcion, precio, stock, disponible)
+            VALUES (:nombre, :descripcion, :precio, :stock, :disponible)
+        ');
+        return $stmt->execute([
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'precio' => max(0, $precio),
+            'stock' => max(0, $stock),
+            'disponible' => $disponible ? 1 : 0,
+        ]);
+    }
+
+    public static function actualizarPlato(
+        int $id,
+        string $nombre,
+        string $descripcion,
+        float $precio,
+        int $stock,
+        int $disponible
+    ): bool {
+        $stmt = self::getConn()->prepare('
+            UPDATE platos
+            SET nombre = :nombre,
+                descripcion = :descripcion,
+                precio = :precio,
+                stock = :stock,
+                disponible = :disponible
+            WHERE id = :id
+        ');
+        $stmt->execute([
+            'id' => $id,
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'precio' => max(0, $precio),
+            'stock' => max(0, $stock),
+            'disponible' => $disponible ? 1 : 0,
+        ]);
+        return $stmt->rowCount() > 0;
+    }
 }

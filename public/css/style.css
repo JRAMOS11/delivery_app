@@ -162,6 +162,71 @@ button:hover { opacity: .85; }
 }
 .caps-products-table button:hover { opacity: .85; }
 
+.pedido-filter {
+    display: flex;
+    align-items: end;
+    gap: .75rem;
+    max-width: none;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+}
+.pedido-filter label {
+    margin-top: 0;
+}
+.pedido-filter select {
+    min-width: 180px;
+    padding: .55rem .75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-surface);
+    color: var(--text-main);
+}
+.pedido-filter button {
+    margin-top: 0;
+}
+.empty-state {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.empty-state h2 {
+    font-size: 1.15rem;
+    margin-bottom: .35rem;
+}
+.empty-state p {
+    color: var(--text-muted);
+}
+.tracking-line {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(88px, 1fr));
+    gap: .35rem;
+    min-width: 420px;
+}
+.tracking-step {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-muted);
+    font-size: .78rem;
+    font-weight: 700;
+    padding: .25rem .55rem;
+    text-align: center;
+}
+.tracking-step.done {
+    background: rgba(92,143,34,.18);
+    border-color: var(--green);
+    color: var(--text-main);
+}
+.tracking-step.active {
+    background: rgba(251,203,123,.18);
+    border-color: var(--toasted);
+    color: var(--toasted);
+}
+.tracking-step.muted {
+    opacity: .45;
+}
+
 .caps-secondary-btn {
     background: transparent;
     color: var(--toasted);

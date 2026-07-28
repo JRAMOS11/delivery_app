@@ -21,6 +21,32 @@ class GestionPlatos extends \Controllers\PrivateController
                 $stock = (int)($_POST['stock'] ?? 0);
                 \Dao\AdminDao::actualizarStock($id, $stock);
                 $mensaje = 'Stock actualizado.';
+            } elseif ($accion === 'crear') {
+                $nombre = trim($_POST['nombre'] ?? '');
+                $descripcion = trim($_POST['descripcion'] ?? '');
+                $precio = (float)($_POST['precio'] ?? 0);
+                $stock = (int)($_POST['stock'] ?? 0);
+                $disponible = (int)($_POST['disponible'] ?? 1);
+
+                if ($nombre !== '' && $precio >= 0 && $stock >= 0) {
+                    \Dao\AdminDao::crearPlato($nombre, $descripcion, $precio, $stock, $disponible);
+                    $mensaje = 'Plato agregado al menu.';
+                } else {
+                    $mensaje = 'Completa nombre, precio y stock validos.';
+                }
+            } elseif ($accion === 'editar' && $id > 0) {
+                $nombre = trim($_POST['nombre'] ?? '');
+                $descripcion = trim($_POST['descripcion'] ?? '');
+                $precio = (float)($_POST['precio'] ?? 0);
+                $stock = (int)($_POST['stock'] ?? 0);
+                $disponible = (int)($_POST['disponible'] ?? 0);
+
+                if ($nombre !== '' && $precio >= 0 && $stock >= 0) {
+                    \Dao\AdminDao::actualizarPlato($id, $nombre, $descripcion, $precio, $stock, $disponible);
+                    $mensaje = 'Plato actualizado.';
+                } else {
+                    $mensaje = 'No se pudo actualizar: revisa los datos.';
+                }
             }
         }
 

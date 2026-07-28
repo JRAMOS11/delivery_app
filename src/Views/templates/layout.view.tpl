@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{SITE_TITLE}}</title>
   <link rel="stylesheet" href="{{BASE_DIR}}public/css/global.css">
+  <link rel="stylesheet" href="{{BASE_DIR}}public/css/style.css">
 </head>
 <body>
   <header>
@@ -22,7 +23,7 @@
         {{endfor PUBLIC_NAVIGATION}}
       </ul>
     </nav>
-    <a href="index.php?page=Sec.Login" class="btn-login-header">Iniciar Sesión</a>
+    <a href="index.php?page=Sec.Login" class="btn-login-header">Iniciar Sesion</a>
   </header>
 
   <main>

@@ -18,6 +18,19 @@
             Mis Pedidos
         </a>
 
+        <a href="index.php?page=Tracking_Carrito"
+            style="
+                background:var(--toasted);
+                color:#111;
+                text-decoration:none;
+                padding:.7rem 1.25rem;
+                border-radius:2rem;
+                font-weight:700;
+                margin-left:.5rem;
+            ">
+            Carrito {{cartCount}}
+        </a>
+
     </div>
 
     <div style="overflow-x:auto;">
@@ -112,7 +125,7 @@
 
                         {{if platoDisponible}}
 
-                        <form action="index.php?page=Tracking_Pedido"
+                        <form action="index.php?page=Tracking_Carrito"
                             method="POST"
                             style="
                                 display:flex;
@@ -120,13 +133,14 @@
                                 gap:.5rem;
                             ">
 
+                            <input type="hidden" name="accion" value="agregar" />
                             <input type="hidden" name="platoId" value="{{id}}" />
 
-                            <input type="number"  name="cantidad" min="1" max="{{stock}}"value="1" style="
+                            <input type="number" name="cantidad" min="1" max="{{stock}}" value="1" required style="
                             width:75px; margin:0; background:#2a2a2a; color:#f5f0e8; border:1px solid #444; border-radius:6px; padding:.35rem .5rem; text-align:center;"
                             />
 
-                            <button type="submit" style="margin:0;" >Realizar Pedido</button>
+                            <button type="submit" style="margin:0;" >Agregar al carrito</button>
 
                         </form>
 

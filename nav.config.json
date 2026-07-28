@@ -38,6 +38,12 @@
             "roles": ["cliente"]
         },
         {
+            "id": "Menu_Carrito",
+            "nav_url": "index.php?page=Tracking_Carrito",
+            "nav_label": "Carrito",
+            "roles": ["cliente"]
+        },
+        {
             "id": "Menu_Admin",
             "nav_url": "index.php?page=Admin.Admin",
             "nav_label": "Admin",

@@ -22,6 +22,8 @@
                     name="nombre"
                     value="{{nombre}}"
                     placeholder="Ingrese su nombre"
+                    minlength="3"
+                    maxlength="80"
                     required
                 >
             </div>
@@ -37,6 +39,8 @@
                     name="email"
                     value="{{email}}"
                     placeholder="correo@ejemplo.com"
+                    maxlength="100"
+                    autocomplete="email"
                     required
                 >
             </div>
@@ -47,12 +51,20 @@
                 </label>
 
                 <input
-                    id="passwd"
-                    type="password"
-                    name="passwd"
-                    placeholder="Mínimo 8 caracteres"
-                    required
+                 id="passwd"
+                 type="password"
+                 name="passwd"
+                 placeholder="Mínimo 8 caracteres"
+                 minlength="8"
+                 
+                 
+                  required
                 >
+
+                <small>
+                    Debe tener mínimo 8 caracteres, una mayúscula,
+                    una minúscula, un número y un carácter especial.
+                </small>
             </div>
 
             {{if error}}

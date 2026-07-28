@@ -34,7 +34,7 @@
               <input type="hidden" name="id" value="{{id}}">
               <input type="hidden" name="version" value="{{version}}">
               <input type="hidden" name="estado" value="{{estado}}">
-              <button type="submit">Avanzar</button>
+              <button type="submit">{{accion_estado_texto}}</button>
             </form>
           </td>
         </tr>
