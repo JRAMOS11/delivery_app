@@ -20,7 +20,8 @@ class Menu extends PrivateController
             $plato["platoDisponible"] = ($plato["stock"] > 0);
         }
         unset($plato);
-
+        //Mejorar el tiempo de sesiones por si un usuario esta inactivo, lo mismo con otras sesiones
+        //Prueba de multiples usuarios en una misma sesion
         $carrito = $_SESSION['carrito'] ?? [];
         $cartCount = array_sum(array_map('intval', $carrito));
  
