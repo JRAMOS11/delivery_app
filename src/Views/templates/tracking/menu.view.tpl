@@ -293,7 +293,7 @@
             <div class="producto-imagen-contenedor">
 
                 <img
-                src="http://localhost/NWEB/delivery_app/public/{{imagen}}"
+                src="{{BASE_DIR}}public/{{imagen}}"
                 alt="{{nombre}}"
                 class="producto-imagen"
                 >

@@ -210,7 +210,7 @@
       <article class="oferta-card">
 
         <img
-          src="http://localhost/NWEB/delivery_app/public/img/platos/pizza.jpg"
+          src="{{BASE_DIR}}public/img/platos/pizza.jpg"
           alt="Oferta de pizzas"
           class="oferta-imagen"
         >
@@ -247,7 +247,7 @@
       <article class="oferta-card">
 
         <img
-          src="http://localhost/NWEB/delivery_app/public/img/platos/hamburguesa.jpg"
+          src="{{BASE_DIR}}public/img/platos/hamburguesa.jpg"
           alt="Combo de hamburguesa"
           class="oferta-imagen"
         >
@@ -284,7 +284,7 @@
       <article class="oferta-card">
 
         <img
-          src="http://localhost/NWEB/delivery_app/public/img/platos/alitas.jpg"
+          src="{{BASE_DIR}}public/img/platos/alitas.jpg"
           alt="Oferta de alitas"
           class="oferta-imagen"
         >

@@ -15,8 +15,7 @@ class Platos extends Table
                 descripcion,
                 precio,
                 stock,
-                disponible,
-                imagen
+                disponible
             FROM platos
             WHERE disponible = 1
             ORDER BY nombre;
@@ -37,8 +36,7 @@ class Platos extends Table
                 descripcion,
                 precio,
                 stock,
-                disponible,
-                imagen
+                disponible
             FROM platos
             WHERE id = :id;
         ";
