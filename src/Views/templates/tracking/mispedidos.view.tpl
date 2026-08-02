@@ -22,82 +22,99 @@
 
     {{if hasPedidos}}
     <div class="pedidos-table-wrap">
-    <table class="caps-products-table">
+        <table class="caps-products-table">
 
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Plato</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th>Total</th>
-                <th>Estado</th>
-                <th>Seguimiento</th>
-                <th>Fecha</th>
-                <th>Accion</th>
-            </tr>
-        </thead>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Plato</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                    <th>Estado</th>
+                    <th>Seguimiento</th>
+                    <th>Fecha</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
 
-        <tbody>
+            <tbody>
 
-            {{foreach pedidos}}
+                {{foreach pedidos}}
 
-            <tr>
+                <tr>
 
-                <td>{{id}}</td>
+                    <td>{{id}}</td>
 
-                <td>{{nombre}}</td>
+                    <td>{{nombre}}</td>
 
-                <td>{{cantidad}}</td>
+                    <td>{{cantidad}}</td>
 
-                <td>L. {{precio}}</td>
+                    <td>L. {{precio}}</td>
 
-                <td>L. {{total}}</td>
+                    <td>L. {{total}}</td>
 
-                <td class="{{estadoClass}}">
-                    {{estadoDsc}}
-                </td>
+                    <td class="{{estadoClass}}">
+                        {{estadoDsc}}
+                    </td>
 
-                <td>
-                    <!-- Seguimiento visual del avance del pedido para el cliente. -->
-                    <div class="tracking-line">
-                        <span class="{{pasoPendiente}}">Pendiente</span>
-                        <span class="{{pasoProceso}}">En proceso</span>
-                        <span class="{{pasoListo}}">Listo</span>
-                        <span class="{{pasoEntregado}}">Entregado</span>
-                    </div>
-                </td>
+                    <td>
+                        <div class="tracking-line">
+                            <span class="{{pasoPendiente}}">Pendiente</span>
+                            <span class="{{pasoProceso}}">En proceso</span>
+                            <span class="{{pasoListo}}">Listo</span>
+                            <span class="{{pasoEntregado}}">Entregado</span>
+                        </div>
+                    </td>
 
-                <td>{{creado_en}}</td>
+                    <td>{{creado_en}}</td>
 
-                <td>
+                   <td>
 
-                    {{if puedeCancelar}}
+    {{if puedeCancelar}}
 
-                    <form action="index.php?page=Tracking_CancelarPedido" method="POST">
+    <form action="index.php?page=Tracking_CancelarPedido" method="POST">
 
-                        <input type="hidden" name="pedidoId" value="{{id}}" />
-                        <button type="submit">Cancelar</button>
+        <input
+            type="hidden"
+            name="pedidoId"
+            value="{{id}}" />
 
-                    </form>
+        <button type="submit">
+            Cancelar
+        </button>
 
-                    {{endif puedeCancelar}}
+    </form>
 
-                </td>
+    {{endif puedeCancelar}}
 
-            </tr>
+    <br>
 
-            {{endfor pedidos}}
+    <a
+        href="index.php?page=Tracking_Factura&id={{id}}"
+        class="caps-primary-btn">
 
-        </tbody>
+        Ver Factura
 
-    </table>
+    </a>
+
+</td> 
+
+                </tr>
+
+                {{endfor pedidos}}
+
+            </tbody>
+
+        </table>
     </div>
     {{endif hasPedidos}}
 
     <div class="row my-4 flex-end">
 
-        <button type="button" id="btnRegresar" class="caps-secondary-btn">Volver al Menu</button>
+        <button type="button" id="btnRegresar" class="caps-secondary-btn">
+            Volver al Menu
+        </button>
 
     </div>
 

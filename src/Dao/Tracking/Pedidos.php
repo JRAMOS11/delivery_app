@@ -215,4 +215,32 @@ class Pedidos extends Table
     {
         return self::getConn()->lastInsertId();
     }
+    public static function obtenerDetalleFactura(int $pedidoId)
+{
+    $sqlstr = "
+        SELECT
+            p.id,
+            p.creado_en,
+            u.nombre AS cliente,
+            pl.nombre AS producto,
+            pl.precio,
+            pp.cantidad,
+            (pp.cantidad * pl.precio) AS total
+        FROM pedidos p
+        INNER JOIN usuarios u
+            ON u.id = p.usuario_id
+        INNER JOIN pedido_platos pp
+            ON pp.pedido_id = p.id
+        INNER JOIN platos pl
+            ON pl.id = pp.plato_id
+        WHERE p.id = :id
+    ";
+
+    return self::obtenerRegistros(
+        $sqlstr,
+        [
+            "id" => $pedidoId
+        ]
+    );
+}
 }
