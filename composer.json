@@ -1,18 +1,5 @@
 {
-    "name": "michellerodriguez/seminario-taller-de-software",
     "autoload": {
-        "psr-4": {
-            "Controllers\\": "src/Controllers/",
-            "Dao\\": "src/Dao/",
-            "Utilities\\": "src/Utilities/",
-            "Views\\": "src/Views/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Sumii016",
-            "email": "michellerodriguezm016@gmail.com"
-        }
-    ],
-    "require": {}
+        "psr-4": { "": "src/" }
+    }
 }

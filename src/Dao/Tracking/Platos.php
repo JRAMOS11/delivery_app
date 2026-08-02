@@ -21,9 +21,11 @@ class Platos extends Table
             ORDER BY nombre;
         ";
 
-        return self::obtenerRegistros(
+        return self::agregarImagenes(
+            self::obtenerRegistros(
             $sqlstr,
             []
+            )
         );
     }
 
@@ -41,12 +43,53 @@ class Platos extends Table
             WHERE id = :id;
         ";
 
-        return self::obtenerUnRegistro(
+        $plato = self::obtenerUnRegistro(
             $sqlstr,
             [
                 'id' => $id
             ]
         );
+
+        if (is_array($plato)) {
+            $plato['imagen'] = self::obtenerImagen($plato['nombre']);
+        }
+
+        return $plato;
+    }
+
+    private static function agregarImagenes(array $platos): array
+    {
+        foreach ($platos as &$plato) {
+            $plato['imagen'] = self::obtenerImagen($plato['nombre']);
+        }
+        unset($plato);
+
+        return $platos;
+    }
+
+    private static function obtenerImagen(string $nombre): string
+    {
+        $nombreNormalizado = strtolower($nombre);
+        $imagenes = [
+            'pizza' => 'platos/pizza.jpg',
+            'hamburguesa' => 'platos/hamburguesa.jpg',
+            'ensalada' => 'platos/ensalada.jpg',
+            'limonada' => 'platos/limonada.jpg',
+            'baleada' => 'platos/baleada.jpg',
+            'alita' => 'platos/alitas.jpg',
+            'pastel' => 'platos/pastel.jpg',
+            'refresco' => 'platos/refresco.jpg',
+            'taco' => 'platos/tacos.jpg',
+            'pollo' => 'platos/pollo.jpg',
+        ];
+
+        foreach ($imagenes as $palabra => $ruta) {
+            if (str_contains($nombreNormalizado, $palabra)) {
+                return $ruta;
+            }
+        }
+
+        return 'platos/pizza.jpg';
     }
 
     public static function reducirStock(

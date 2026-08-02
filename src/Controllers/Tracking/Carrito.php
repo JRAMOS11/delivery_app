@@ -53,11 +53,6 @@ class Carrito extends PrivateController
             return;
         }
 
-        if ($accion === 'pagar') {
-            $this->procesarPago();
-            return;
-        }
-
         Site::redirectTo('index.php?page=Tracking_Carrito');
     }
 
@@ -126,50 +121,17 @@ class Carrito extends PrivateController
             return;
         }
 
-        unset($_SESSION['pago_errores']);
-        unset($_SESSION['pago_metodo']);
-        $this->renderCart(true);
-    }
-
-    private function procesarPago(): void
-    {
-        $usuarioId = Security::getUserId();
-        $carrito = $_SESSION['carrito'] ?? [];
-
-        if ($usuarioId <= 0 || count($carrito) === 0) {
-            Site::redirectTo('index.php?page=Tracking_Carrito', 'Tu carrito esta vacio.');
-            return;
-        }
-
-        $metodo = trim($_POST['metodo_pago'] ?? '');
-        if ($metodo !== 'efectivo' && $metodo !== 'tarjeta') {
-            $metodo = 'efectivo';
-        }
-
-       
-
-
-        unset($_SESSION['pago_errores']);
-        $_SESSION['pago_metodo'] = $metodo;
-
         $pedidoId = PedidosDAO::insertPedidoConItems($usuarioId, $carrito);
         if (!$pedidoId) {
             Site::redirectTo('index.php?page=Tracking_Carrito', 'No se pudo confirmar. Revisa el stock disponible.');
             return;
         }
 
-        unset($_SESSION['pago_errores']);
-        unset($_SESSION['pago_metodo']);
         $_SESSION['carrito'] = [];
-        $_SESSION['ultimo_pedido'] = [
-            'id' => $pedidoId,
-            'metodo' => $metodo,
-        ];
-
-        Site::redirectTo('index.php?page=Tracking_MisPedidos', 'Pago procesado correctamente. El pedido ha sido confirmado y agregado a tus pedidos.');
+        Site::redirectTo('index.php?page=Tracking_MisPedidos', 'Pedido confirmado correctamente.');
     }
 
-    private function renderCart(bool $showPayment = false): void
+    private function renderCart(): void
     {
         $carrito = $_SESSION['carrito'] ?? [];
         $items = [];
@@ -196,29 +158,10 @@ class Carrito extends PrivateController
             ];
         }
 
-        $pagoErrores = $_SESSION['pago_errores'] ?? [];
-        $pagoMetodo = $_SESSION['pago_metodo'] ?? '';
-
         Renderer::render('tracking/carrito', [
             'items' => $items,
             'hasItems' => count($items) > 0,
             'cartTotal' => number_format($total, 2),
-            'showPayment' => $showPayment,
-            'pagoErrores' => $pagoErrores,
-            'pagoMetodo' => $pagoMetodo,
-            'pagoMetodoTarjeta' => $pagoMetodo === 'tarjeta',
-            'pagoMetodoEfectivo' => $pagoMetodo !== 'tarjeta',
-            'error_nombre' => $pagoErrores['nombre'] ?? '',
-            'error_telefono' => $pagoErrores['telefono'] ?? '',
-            'error_correo' => $pagoErrores['correo'] ?? '',
-            'error_direccion' => $pagoErrores['direccion'] ?? '',
-            'error_entrega' => $pagoErrores['entrega'] ?? '',
-            'error_nombre_tarjeta' => $pagoErrores['nombre_tarjeta'] ?? '',
-            'error_numero_tarjeta' => $pagoErrores['numero_tarjeta'] ?? '',
-            'error_cvv' => $pagoErrores['cvv'] ?? '',
-            'error_fecha_vencimiento' => $pagoErrores['fecha_vencimiento'] ?? '',
-            'error_correo_tarjeta' => $pagoErrores['correo_tarjeta'] ?? '',
-            'error_direccion_tarjeta' => $pagoErrores['direccion_tarjeta'] ?? '',
         ]);
     }
 }
